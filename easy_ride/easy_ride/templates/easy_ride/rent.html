@@ -1,0 +1,63 @@
+{% extends 'easy_ride/base_template.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'easy_ride/css/style2.css' %}" />
+    <link rel="stylesheet" href="{% static 'easy_ride/css/auth.css' %}" />
+    <link rel="stylesheet" href="{% static 'easy_ride/css/rent.css' %}" />
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <section id="rent" class="auth-section">
+        <div class="auth-container" style="justify-content: center;">
+            <h2 class="auth-title">Аренда автомобиля</h2>
+            
+            {% if not_available %}
+                <div class="error-message">
+                    <p>Этот автомобиль сейчас занят и недоступен для аренды.</p>
+                    <a href="{% url 'category' car.category.pk %}" class="auth-btn">Вернуться в категорию</a>
+                </div>
+            {% else %}
+                <div class="car-info">
+                    <img src="{{ car.photo.url }}" alt="{{ car.model.name }}" class="car-photo">
+                    <div class="car-details">
+                        <h3>{{ car.model.brand.name }} {{ car.model.name }}</h3>
+                        <p>Цвет: {{ car.colour }}</p>
+                        <p>Мощность: {{ car.horse_powers }} л.с.</p>
+                        <p>Цена: {{ car.cost }} руб./сутки</p>
+                    </div>
+                </div>
+                
+                <form method="post" class="auth-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.start_date.id_for_label }}">Дата начала аренды:</label>
+                        {{ form.start_date }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.end_date.id_for_label }}">Дата окончания аренды:</label>
+                        {{ form.end_date }}
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Забронировать</button>
+                </form>
+                
+                <a href="{% url 'category' car.category.pk %}" class="auth-btn back-btn" style="text-decoration: none;">Вернуться в категорию</a>
+                
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </section>
+</main>
+{% endblock %}

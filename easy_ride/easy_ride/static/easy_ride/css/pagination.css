@@ -1,0 +1,54 @@
+/* Стили пагинации */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.pagination-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #2b2b2b;
+    color: #d4b068;
+    border: 1px solid #d4b068;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 300;
+    transition: all 0.3s ease;
+    min-width: 40px;
+    text-align: center;
+}
+
+.pagination-btn:hover {
+    background-color: #d4b068;
+    color: #1c1c1c;
+}
+
+.pagination-btn.active {
+    background-color: #d4b068;
+    color: #1c1c1c;
+    font-weight: 500;
+}
+
+.pagination-btn.next {
+    padding: 10px 20px;
+}
+
+/* Адаптивные стили */
+@media (max-width: 576px) {
+    .pagination {
+        gap: 5px;
+    }
+
+    .pagination-btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .pagination-btn.next {
+        padding: 8px 15px;
+    }
+}

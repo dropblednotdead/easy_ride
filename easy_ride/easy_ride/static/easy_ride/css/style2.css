@@ -1,0 +1,134 @@
+       .category-header {
+            background-color: #111;
+            padding: 30px 7.5%;
+            color: #d4b068;
+        }
+        .category-header h1 {
+            font-family: 'Italiana', serif;
+            font-size: 3rem;
+            font-weight: 200;
+            margin-bottom: 20px;
+        }
+        .category-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .cars-container {
+            padding: 50px 7.5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .cat-img {
+            background-image: url('../images/category.jpg');
+            background-size: cover;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .car-card {
+            background-color: #2b2b2b;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+        .car-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        .car-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            justify-self: flex-end;
+            height: 80%;
+        }
+        .car-name {
+            font-size: 2.5rem;
+            color: #d4b068;
+            margin-bottom: 15px;
+        }
+        .car-description {
+            font-size: 1.5rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .car-price {
+            font-size: 1.5rem;
+            color: #d4b068;
+            margin-bottom: 15px;
+            justify-self: flex-end;
+        }
+        .rent-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #d4b068;
+            color: #1c1c1c;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .rent-btn:hover {
+            background-color: transparent;
+            color: #d4b068;
+            border: 1px solid #d4b068;
+        }
+        .filters {
+            margin-top: 5%;
+            padding: 20px 7.5%;
+            background-color: #1c1c1c;
+            margin-bottom: 30px;
+        }
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        .filter-title {
+            color: #d4b068;
+            margin-bottom: 5%;
+            font-size: 2.5rem;
+        }
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 5%;
+        }
+        .filter-option {
+            padding: 15px 25px;
+            background-color: #2b2b2b;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-option:hover, .filter-option.active {
+            background-color: #d4b068;
+            color: #1c1c1c;
+        }
+        .price-range {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        /* Адаптивные стили */
+        @media (max-width: 768px) {
+            .cars-container {
+                grid-template-columns: 1fr;
+            }
+            .category-header h1 {
+                font-size: 2rem;
+            }
+            .category-description {
+                font-size: 1rem;
+            }
+        }

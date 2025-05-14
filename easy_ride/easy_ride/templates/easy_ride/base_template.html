@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Easy Ride</title>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'easy_ride/css/style.css' %}">
+    {% block styles %}
+    {% endblock %}
+    <style>
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo"> <a href="{% url 'main' %}" class="logo"> Easy Ride </a></div>
+    <nav>
+        <a href="{% url 'categories' %}">Категории</a>
+        <a href="{% url 'main' %}#reviews">Отзывы</a>
+        <a href="{% url 'main' %}#about">О нас</a>
+        <a href="#contacts">Контакты</a>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'user' %}">Профиль</a>
+        {% else %}
+        <a href="{% url 'authorization' %}">Войти</a>
+        {% endif %}
+    </nav>
+</header>
+{% block content %}
+{% endblock %}
+<footer id="contacts">
+    <h2>Ваш надежный партнёр в аренде автомобилей</h2>
+    <div class="flex">
+        <div>Телефон: <a href="tel:+79046139341">+7-904-613-93-41</a></div>
+        <div>Электронная почта: <a href="mailto:easyride@mail.com">easyride@mail.com</a></div>
+        <div>Адрес: г. Дзержинск, проспект Циолковского, 61Г</div>
+        <div>
+            <a href="#">Telegram</a> | <a href="#"> WhatsApp</a> | <a href="#">VK</a>
+        </div>
+    </div>
+    <div class="logo"> <a href="{% url 'main' %}" class="logo"> Easy Ride </a></div>
+</footer>
+</body>
+</html>

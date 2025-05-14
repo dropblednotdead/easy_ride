@@ -1,0 +1,38 @@
+{% extends 'easy_ride/base_template.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'easy_ride/css/style2.css' %}" />
+    <link rel="stylesheet" href="{% static 'easy_ride/css/review.css' %}" />
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <section id="review">
+        <div class="review-form">
+            <h2>Написать отзыв</h2>
+            
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="message">Ваш отзыв</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <a href="{% url 'main' %}" class="cancel-btn">Отмена</a>
+                    <button type="submit" class="submit-btn">Отправить отзыв</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}

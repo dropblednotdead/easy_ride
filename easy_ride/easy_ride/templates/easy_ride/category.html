@@ -1,0 +1,66 @@
+{% extends 'easy_ride/base_template.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'easy_ride/css/style2.css' %}" />
+    <link rel="stylesheet" href="{% static 'easy_ride/css/pagination.css' %}" />
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="hero">
+        <h1>Easy Ride</h1>
+        <p style="font-size: 50px;"> <span style="color: #d4b068;">Категория:</span> {{ cars.first.category.name }}</p>
+    </div>
+    <section class="flex" id="about" style="">
+        <div class="half">
+            <h2>О категории</h2>
+            <p>{{ cars.first.category.description }}</p>
+        </div>
+        <div class="half half-img cat-img">
+
+        </div>
+    </section>
+    <div style="text-align: center">
+        <a class="btn" href="{% url 'categories' %}">Вернуться в категории</a>
+    </div>
+    <section class="flex" id="about" style="margin-bottom: 4%;">
+        <h2>Выбрать автомобиль</h2>
+    </section>
+    <a name="cars"> </a>
+<div class="cars-container">
+    {% for i in cars %}
+    <div class="car-card">
+        <img src="{{ i.photo.url }}" alt="Hyundai Solaris" class="car-image">
+        <div class="car-info">
+            <h3 class="car-name">{{ i.model }}</h3>
+            <p class="car-description">
+                {{ i.description }}
+            </p>
+            <div class="car-price">{{ i.cost }} руб. в сутки</div>
+            <a href="{% url 'rent' i.pk %}" class="rent-btn" style="text-align: center">Арендовать</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+            <div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1" class="pagination-btn">Первая</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="pagination-btn">←</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a href="?page={{ num }}" class="pagination-btn active">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}" class="pagination-btn">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="pagination-btn">→</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-btn">Последняя</a>
+    {% endif %}
+</div>
+</main>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'easy_ride/base_template.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'easy_ride/css/style2.css' %}" />
+    <link rel="stylesheet" href="{% static 'easy_ride/css/auth.css' %}" />
+    <link rel="stylesheet" href="{% static 'easy_ride/css/profile.css' %}" />
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <section id="profile" class="auth-section">
+        <div class="auth-container">
+            <h2 class="auth-title">Профиль пользователя</h2>
+            {% if not edit_mode and user_info %}
+            {% if user_info.avatar and user_info.avatar.url %}
+            <div class="profile-info">
+                <img src="{{ user_info.avatar.url }}" alt="" style="border-radius: 15px">
+            </div>
+            {% endif %}
+                <div class="profile-info">
+                    <div class="profile-field">
+                        <span class="field-label">Фамилия:</span>
+                        <span class="field-value">{{ user_info.surname }}</span>
+                    </div>
+                    <div class="profile-field">
+                        <span class="field-label">Имя:</span>
+                        <span class="field-value">{{ user_info.name }}</span>
+                    </div>
+                    <div class="profile-field">
+                        <span class="field-label">Отчество:</span>
+                        <span class="field-value">{{ user_info.patronymic }}</span>
+                    </div>
+                    <div class="profile-field">
+                        <span class="field-label">Возраст:</span>
+                        <span class="field-value">{{ user_info.age }}</span>
+                    </div>
+                    <div class="profile-field">
+                        <span class="field-label">Номер паспорта:</span>
+                        <span class="field-value">{{ user_info.passport_num }}</span>
+                    </div>
+                    <div class="profile-field">
+                        <span class="field-label">Серия паспорта:</span>
+                        <span class="field-value">{{ user_info.passport_series }}</span>
+                    </div>
+                    <div class="profile-field">
+                        <span class="field-label">Телефон:</span>
+                        <span class="field-value">{{ user_info.phone_num }}</span>
+                    </div>
+                    <div class="profile-field">
+                        <span class="field-label">Почта:</span>
+                        <span class="field-value">{{ user_info.user.email }}</span>
+                    </div>
+                    <a href="{% url 'user' %}?edit=true" class="auth-btn edit-btn">Изменить данные</a>
+                    <a href="{% url 'my_rents' %}" class="auth-btn edit-btn">Аренды</a>
+                    <a href="{% url 'logout' %}" class="auth-btn edit-btn">Выйти</a>
+                </div>
+            {% else %}
+                <form method="post" class="auth-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    
+                    <button type="submit" class="auth-btn">Сохранить изменения</button>
+                </form>
+            {% endif %}
+        </div>
+    </section>
+</main>
+{% endblock %}

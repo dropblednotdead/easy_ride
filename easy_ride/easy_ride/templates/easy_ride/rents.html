@@ -1,0 +1,74 @@
+{% extends 'easy_ride/base_template.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'easy_ride/css/style2.css' %}" />
+    <link rel="stylesheet" href="{% static 'easy_ride/css/auth.css' %}" />
+    <link rel="stylesheet" href="{% static 'easy_ride/css/pagination.css' %}" />
+    <link rel="stylesheet" href="{% static 'easy_ride/css/profile.css' %}" />
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <section id="profile" class="auth-section">
+        {% if rents.exists %}
+        {% for i in rents %}
+        <div class="auth-container">
+            <h2 class="auth-title">Аренда №{{i.pk }}</h2>
+            <div class="profile-info">
+                <div class="profile-field">
+                        <span class="field-label">Автомобиль:</span>
+                        <span class="field-value">{{ i.car.model }}</span>
+                </div>
+                <div class="profile-field">
+                        <span class="field-label">Цвет:</span>
+                        <span class="field-value">{{ i.car.colour }}</span>
+                </div>
+                <div class="profile-field">
+                        <span class="field-label">Мощность:</span>
+                        <span class="field-value">{{ i.car.horse_powers }}</span>
+                </div>
+                <div class="profile-field">
+                        <span class="field-label">Цена:</span>
+                        <span class="field-value">{{ i.car.cost }} руб. в сутки</span>
+                </div>
+                <div class="profile-field">
+                        <span class="field-label">Статус:</span>
+                        <span class="field-value">{{ i.accepted }}</span>
+                </div>
+                <div class="profile-field">
+                        <span class="field-label">Начало аренды:</span>
+                        <span class="field-value">{{ i.start_date }}</span>
+                </div>
+                <div class="profile-field">
+                        <span class="field-label">Конец аренды:</span>
+                        <span class="field-value">{{ i.end_date }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+            <h2> Здесь пока пусто </h2>
+        {% endif %}
+        </section>
+            <div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1" class="pagination-btn">Первая</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="pagination-btn">←</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a href="?page={{ num }}" class="pagination-btn active">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}" class="pagination-btn">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="pagination-btn">→</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-btn">Последняя</a>
+    {% endif %}
+</div>
+</main>
+{% endblock %}

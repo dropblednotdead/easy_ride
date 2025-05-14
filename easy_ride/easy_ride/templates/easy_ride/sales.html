@@ -1,0 +1,49 @@
+{% extends 'easy_ride/base_template.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'easy_ride/css/pagination.css' %}" />
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="hero">
+        <h1>Easy Ride</h1>
+        <p> Ваш надежный партнёр в аренде автомобилей</p>
+    </div>
+    <section class="discounts">
+        <h2 style="width: 100%;">Скидки и акции</h2>
+        <div class="disc">
+            {% for i in discounts %}
+            <div class="discount">
+                <h3>{{i.name}}</h3>
+                <p>{{i.description}}</p>
+                <p>Конец акции: {{i.end_date|date:"d.m.Y"}}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="disc-img">
+            <img src="{% static 'easy_ride/images/discounts.jpg' %}" alt="">
+        </div>
+    </section>
+            <div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1" class="pagination-btn">Первая</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="pagination-btn">←</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a href="?page={{ num }}" class="pagination-btn active">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}" class="pagination-btn">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="pagination-btn">→</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-btn">Последняя</a>
+    {% endif %}
+</div>
+</main>
+{% endblock %}
